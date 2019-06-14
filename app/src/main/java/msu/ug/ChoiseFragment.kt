@@ -23,7 +23,7 @@ class ChoiseFragment(private val actContext: Context) : ListFragment() {
             map["text"] = arr.getJSONObject(i).getString("text")
             displayData.add(map)
         }
-
+      
         val from = arrayOf("text")
         val to = intArrayOf(android.R.id.text1)
         val listAdapter = SimpleAdapter(context, displayData, android.R.layout.simple_list_item_1, from, to)
