@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_frame, ChoiseFragment(this))
+        transaction.replace(R.id.fragment_frame, ChoiseFragment())
         transaction.commit()
     }
 }
