@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
+
 class AboutActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,6 +15,7 @@ class AboutActivity : AppCompatActivity() {
         val tv:TextView = findViewById(R.id.info_tv)
         val sp = getString(R.string.info)
         tv.text = sp
+
     }
 
 }
