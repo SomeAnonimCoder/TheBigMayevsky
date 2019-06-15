@@ -17,7 +17,6 @@ before_install:
 - yes | sdkmanager "platforms;android-29"
 - yes | sdkmanager "build-tools;29.0.0"
 
-
 env:
  global:
  - ANDROID_API=26
@@ -36,19 +35,23 @@ android:
    - 'google-gdk-license-.+'
 
 script:
+- curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.33.0/ktlint && chmod a+x ktlint
+- curl -sS https://keybase.io/pinterestandroid/pgp_keys.asc | gpg --import
+- curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.33.0/ktlint.asc
+- gpg --verify ktlint.asc
 - ./gradlew clean test build
 
 before_deploy:
   - export ART_APK_PATH=$(find . -name '*debug.apk')
 
 deploy:
-  provider: releases
-  api_key: "3e6b24d0a2faf3e8f02ba3ab68db5826a766551c"
-  file:
+   provider: releases
+   api_key: "3e6b24d0a2faf3e8f02ba3ab68db5826a766551c"
+   file:
       - ${ART_APK_PATH}
-  skip_cleanup: true
-  on:
-    branches:    # ← new!
-      only:      # ← new!
-        - master # ← new!
-  
+      - app/build/reports/*
+   skip_cleanup: true
+   on:
+     branches:    
+       only:      
+        - master 
