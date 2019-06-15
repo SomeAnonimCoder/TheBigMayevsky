@@ -12,6 +12,11 @@ cache:
   - $HOME/.gradle/caches/
   - $HOME/.gradle/wrapper/
   - $HOME/.android/build-cache
+  
+before_install:
+- yes | sdkmanager "platforms;android-29"
+- yes | sdkmanager "build-tools;29.0.0"
+
 
 env:
  global:
@@ -21,7 +26,6 @@ env:
 android:
   components:
   - tools
-  - tools # Running this twice get's the latest build tools (https://github.com/codepath/android_guides/wiki/Setting-up-Travis-CI)
   - platform-tools
   - android-${ANDROID_API}
   - build-tools-${ANDROID_BUILD_TOOLS}
