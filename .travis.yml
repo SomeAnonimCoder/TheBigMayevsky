@@ -22,3 +22,12 @@ android:
     # if you need to run emulator(s) during your tests
     - sys-img-x86-android-26
     - sys-img-armeabi-v7a-android-17
+
+deploy:
+  provider: releases
+  skip_cleanup: true
+  overwrite: true
+  api_key:ba19772178589b0515d3f02c5ea03dbfed84ec27
+  file: /home/travis/build/someanonimcoder/thebigmayevsky/app/build/outputs/apk/release/*
+  on: 
+    tags: true
