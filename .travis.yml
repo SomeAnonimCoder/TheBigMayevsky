@@ -39,7 +39,6 @@ script:
 - curl -sS https://keybase.io/pinterestandroid/pgp_keys.asc | gpg --import
 - curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.33.0/ktlint.asc
 - gpg --verify ktlint.asc
-- ./ktlint --reporter=checkstyle?group_by_file,output=ktlint.xml
 - ./gradlew clean test build
 
 before_deploy:
@@ -50,7 +49,7 @@ deploy:
   api_key: "3e6b24d0a2faf3e8f02ba3ab68db5826a766551c"
   file:
       - ${ART_APK_PATH}
-      - ktlint.xml
+      - app/build/reports/*
   skip_cleanup: true
   on:
     branches:    # ← new!
