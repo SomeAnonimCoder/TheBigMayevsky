@@ -45,14 +45,21 @@ before_deploy:
   - export ART_APK_PATH=$(find . -name '*debug.apk')
 
 deploy:
-  provider: releases
+ -provider: releases
   api_key: "3e6b24d0a2faf3e8f02ba3ab68db5826a766551c"
   file:
       - ${ART_APK_PATH}
       - app/build/reports/*
   skip_cleanup: true
   on:
-    branches:    # ← new!
-      only:      # ← new!
-        - master # ← new!
+    branches:    
+      only:      
+        - master 
+        
+ -provider: releases
+  api_key: "3e6b24d0a2faf3e8f02ba3ab68db5826a766551c"
+  file:
+      - app/build/reports/*
+  skip_cleanup: true
+  
   
