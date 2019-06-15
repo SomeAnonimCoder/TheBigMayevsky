@@ -41,10 +41,10 @@ script:
 deploy:
   provider: releases
   api_key: "3e6b24d0a2faf3e8f02ba3ab68db5826a766551c"
-  file: "/home/travis/build/SomeAnonimCoder/TheBigMayevsky/app/build/outputs/apk/release/*"
+  file: "app/build/outputs/apk/release/*.apk"
   skip_cleanup: true
   on:
     branches:    # ← new!
-      only:      # ← new!
-        - master # ← new!
+      -ci      # ← new!
+      - master # ← new!
   
