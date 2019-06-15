@@ -39,7 +39,7 @@ script:
 - curl -sS https://keybase.io/pinterestandroid/pgp_keys.asc | gpg --import
 - curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.33.0/ktlint.asc
 - gpg --verify ktlint.asc
-- ./ktlint --reporter=group_by_file --reporter=checkstyle,output=ktlint.xml
+- ./ktlint --reporter=checkstyle?group_by_file,output=ktlint.xml
 - ./gradlew clean test build
 
 before_deploy:
