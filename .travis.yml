@@ -43,7 +43,7 @@ script:
 
 before_deploy:
   - export ART_APK_PATH=$(find . -name '*debug.apk')
-  - export ART_REPORT_PATH=$(find . -name lint-results.html)
+  - export ART_REPORT_PATH=$(find . -name "lint-results.html")
 
 deploy:
    provider: releases
