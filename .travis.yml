@@ -38,10 +38,14 @@ android:
 script:
 - ./gradlew clean test build
 
+before_deploy:
+  - export ART_APK_PATH=$(find . -name '*debug.apk')
+
 deploy:
   provider: releases
   api_key: "3e6b24d0a2faf3e8f02ba3ab68db5826a766551c"
-  file: "/home/travis/build/SomeAnonimCoder/TheBigMayevsky/app/build/outputs/apk/*"
+  file:
+      - ${ART_APK_PATH}
   skip_cleanup: true
   on:
     branches:    # ← new!
