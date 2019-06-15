@@ -12,6 +12,11 @@ cache:
   - $HOME/.gradle/caches/
   - $HOME/.gradle/wrapper/
   - $HOME/.android/build-cache
+  
+before_install:
+- yes | sdkmanager "platforms;android-29"
+- yes | sdkmanager "build-tools;29.0.0"
+
 
 env:
  global:
