@@ -43,13 +43,14 @@ script:
 
 before_deploy:
   - export ART_APK_PATH=$(find . -name '*debug.apk')
+  - export ART_REPORT_PATH=$(find . -name "lint-results.html")
 
 deploy:
    provider: releases
    api_key: "3e6b24d0a2faf3e8f02ba3ab68db5826a766551c"
    file:
       - ${ART_APK_PATH}
-      - app/build/reports/*
+      - ${ART_REPORT_PATH}
    skip_cleanup: true
    on:
      branches:    
