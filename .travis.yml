@@ -43,5 +43,4 @@ deploy:
   api_key: "3e6b24d0a2faf3e8f02ba3ab68db5826a766551c"
   file: "/home/travis/build/SomeAnonimCoder/TheBigMayevsky/app/build/outputs/apk/release/*"
   skip_cleanup: true
-  on:
-    tags: true
+  
