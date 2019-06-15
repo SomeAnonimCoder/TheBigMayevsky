@@ -1,13 +1,23 @@
-**Summary**
+**О приложении**
+The Big Mayevsky - оцифрованная версия известного определителя растений европейской части России. Отличие от книги заключается в том, что переход от одного пункта к другому происходит автоматически и вам не надо перелистывать книгу.
 
-TheBigMayevsky is a simple text classifier for plants of middle European Russia. It designed as Android Application. It requires nointernet connection. Ther is also a web version(see "How can I help?").
 
-**How can I help?**
+**Как каждый может нам помочь**
+На настоящий момент оцифрована лишь часть определителя, и вы можете нам помочь. Данные, на которых работает приложение находятся в папке https://github.com/SomeAnonimCoder/TheBigMayevsky/tree/master/app/src/main/assets.
+каждая "развилка" хранится там в таком формате:
+[{"text":"текст тезы", "to":"номер, на который отправляет теза (0 если на этом заканчивается определение семейства/рода/вида)"}, {"text":"текст антитезы", "to":"аналогично"}]
 
-You can help this project by processing Mayevsky's book to xlsx files, with the following structure:
+Чтобы добавить информацию о таксоне в определитель, нужно
+1. Отредактировать файл пункта, ведущего к семейству. помимо "text" и "to" нужно добавить "taxon":"название таксона на латыни"
+Например {"text":"цветок в виде креста?", "to":"0", "taxon":"Cruciferae"}
+2. создать в той-же папке, где был файл, который вы редактировали в 1ом пункте создать папку с названием как у таксона (важно, чтобы название папки совпадало с тем, что вы вписали в поле "taxon") и по аналогии заполнить её текстовыми файлами с классификацией и файлом intro.png с информацией о таксоне (он будет показываться при переходе к нему)
 
-|A |B |C |D |E |
+при следуещем обновлении информация о таксоне будет включена в приложение
 
-|number|thesa|thesa-ref-number|athesa|athesa-ref-number|
+если вы хотите помочь но не хотите регистрироваться на github (это нужно для выполнения предыдущих пунктов), или у вас просто есть вопросы/пожелания/претензии к создателям, пишите на 
+oleg.demianchenko@gmail.com или vk.com/o.demyanchenko (RedSnail)
+Glubshev2001@mail.ru или https://vk.com/artem_48_290901 (SomeAnonimCoder)
 
-Also this will help another similar project (https://github.com/SomeAnonimCoder/classifier).
+*P.S*
+
+Здесь веб-приложение для тех-же целей (https://github.com/SomeAnonimCoder/classifier).
