@@ -52,5 +52,6 @@ deploy:
         - ${ART_APK_PATH}
         - ${ART_REPORT_PATH}
      skip_cleanup: true
-     all_branches: true
+     on:
+     - all_branches: true
      
