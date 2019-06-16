@@ -59,7 +59,8 @@ deploy:
           
      - provider: releases
      api_key: "3e6b24d0a2faf3e8f02ba3ab68db5826a766551c"
-     file:
+     file:        
+        - ${ART_APK_PATH}
         - ${ART_REPORT_PATH}
      skip_cleanup: true
      all_branches: true
