@@ -56,7 +56,12 @@ class ChoiceFragment(private val actContext: Context) : ListFragment() {
     }
 
     private fun updateDisplayData(displayData: ArrayList<Map<String, Any>>) {
-        val file = storage.getPath().joinToString("/") + "/" + storage.currentChoise.toString()
+        var path = storage.getPath().joinToString("/") + "/"
+        if (path == "/") {
+            path = ""
+        }
+        val file =  path + storage.currentChoise.toString()
+
         val arr = JSONArray(getPlainText(file))
         toIndices.clear()
         displayData.clear()
