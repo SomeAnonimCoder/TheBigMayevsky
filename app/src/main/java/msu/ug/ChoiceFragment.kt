@@ -10,7 +10,7 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.lang.StringBuilder
 
-class ChoiseFragment(private val actContext: Context) : ListFragment() {
+class ChoiceFragment(private val actContext: Context) : ListFragment() {
     private val storage = Storage(actContext)
     private val toIndices = ArrayList<Int>()
     private val taxons = ArrayList<String>()
@@ -18,7 +18,7 @@ class ChoiseFragment(private val actContext: Context) : ListFragment() {
     override fun onStart() {
         super.onStart()
 
-        val from = arrayOf("text")
+        val from = arrayOf(Const.MAP_TEXT_KEY)
         val to = intArrayOf(android.R.id.text1)
         val displayData = ArrayList<Map<String, Any>>()
         updateDisplayData(displayData)
@@ -63,9 +63,9 @@ class ChoiseFragment(private val actContext: Context) : ListFragment() {
         (0 until arr.length()).forEach {i ->
             val map = HashMap<String, Any>()
             val thesa = arr.getJSONObject(i)
-            map["text"] = thesa.getString("text")
-            toIndices.add(thesa.getInt("to"))
-            taxons.add(thesa.optString("taxon", "Nihil"))
+            map[Const.MAP_TEXT_KEY] = thesa.getString(Const.JSON_TEXT_KEY)
+            toIndices.add(thesa.getInt(Const.TO_KEY))
+            taxons.add(thesa.optString(Const.TAXON_KEY, Const.DEFAULT_TAXON))
             displayData.add(map)
         }
     }

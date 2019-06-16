@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class Storage (context : Context) {
-    private val sp : SharedPreferences = context.getSharedPreferences("MY_SP", Context.MODE_PRIVATE)
+    private val sp : SharedPreferences = context.getSharedPreferences(Const.SP_NAME, Context.MODE_PRIVATE)
     private val switchListeners : ArrayList<() -> Unit> = ArrayList()
 
     fun addSwitchListener(listener : () -> Unit) {
@@ -14,30 +14,33 @@ class Storage (context : Context) {
     var currentChoise : Int
         set(value) {
             if (value > 0) {
-                sp.edit().putInt("current_choise", value).apply()
+                sp.edit().putInt(Const.CUR_CHOICE_KEY, value).apply()
                 switchListeners.forEach {
                     it.invoke()
                 }
             }
         }
         get() {
-            return sp.getInt("current_choise", 1)
+            return sp.getInt(Const.CUR_CHOICE_KEY, 1)
         }
 
     fun getPath() : List<String> {
-        val pathLen = sp.getInt("path_len", 0)
+        val pathLen = sp.getInt(Const.PATH_LEN_KEY, 0)
         val ret = ArrayList<String>()
 
         for (i in 0 until pathLen) {
-            ret.add(sp.getString("folder_$i", "").toString())
+            val str = sp.getString(Const.folderKey(i), "")
+            if (str != null) {
+                ret.add(str)
+            }
         }
 
         return ret
     }
 
     fun appendPath(folder : String) {
-        val newLen = sp.getInt("path_len", 0) + 1
-        sp.edit().putInt("path_len", newLen).apply()
-        sp.edit().putString("folder_$newLen", folder).apply()
+        val len = sp.getInt(Const.PATH_LEN_KEY, 0)
+        sp.edit().putString(Const.folderKey(len), folder).apply()
+        sp.edit().putInt(Const.PATH_LEN_KEY, len + 1).apply()
     }
 }
