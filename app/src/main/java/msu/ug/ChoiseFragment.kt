@@ -13,6 +13,7 @@ import java.lang.StringBuilder
 class ChoiseFragment(private val actContext: Context) : ListFragment() {
     private val storage = Storage(actContext)
     private val toIndices = ArrayList<Int>()
+    private val taxons = ArrayList<String>()
 
     override fun onStart() {
         super.onStart()
@@ -31,7 +32,12 @@ class ChoiseFragment(private val actContext: Context) : ListFragment() {
 
     override fun onListItemClick(l: ListView?, v: View?, position: Int, id: Long) {
         super.onListItemClick(l, v, position, id)
-        storage.currentChoise = toIndices[position]
+        if (toIndices[position] == 0) {
+            storage.appendPath(taxons[position])
+            storage.currentChoise = 1
+        } else {
+            storage.currentChoise = toIndices[position]
+        }
 
     }
 
@@ -50,7 +56,8 @@ class ChoiseFragment(private val actContext: Context) : ListFragment() {
     }
 
     private fun updateDisplayData(displayData: ArrayList<Map<String, Any>>) {
-        val arr = JSONArray(getPlainText(storage.currentChoise.toString()))
+        val file = storage.getPath().joinToString("/") + "/" + storage.currentChoise.toString()
+        val arr = JSONArray(getPlainText(file))
         toIndices.clear()
         displayData.clear()
         (0 until arr.length()).forEach {i ->
@@ -58,6 +65,7 @@ class ChoiseFragment(private val actContext: Context) : ListFragment() {
             val thesa = arr.getJSONObject(i)
             map["text"] = thesa.getString("text")
             toIndices.add(thesa.getInt("to"))
+            taxons.add(thesa.optString("taxon", "Nihil"))
             displayData.add(map)
         }
     }
