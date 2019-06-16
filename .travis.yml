@@ -46,13 +46,12 @@ before_deploy:
   - export ART_REPORT_PATH=$(find . -name "lint-results.html")
 
 deploy:
-   provider: releases
-   api_key: "3e6b24d0a2faf3e8f02ba3ab68db5826a766551c"
-   file:
-      - ${ART_APK_PATH}
-      - ${ART_REPORT_PATH}
-   skip_cleanup: true
-   on:
-     branches:    
-       only:      
-        - master 
+     provider: releases
+     api_key: "3e6b24d0a2faf3e8f02ba3ab68db5826a766551c"
+     file:        
+        - ${ART_APK_PATH}
+        - ${ART_REPORT_PATH}
+     skip_cleanup: true
+     on:
+      all_branches: true
+     
