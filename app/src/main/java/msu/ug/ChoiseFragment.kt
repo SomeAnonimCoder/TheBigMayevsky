@@ -49,7 +49,7 @@ class ChoiseFragment(private val actContext: Context) : ListFragment() {
         return sb.toString()
     }
 
-    private fun updateDisplayData(displayData: ArrayList<Map<String, Any>>) {
+    public fun updateDisplayData(displayData: ArrayList<Map<String, Any>>) {
         val arr = JSONArray(getPlainText(storage.currentChoise.toString()))
         toIndices.clear()
         displayData.clear()

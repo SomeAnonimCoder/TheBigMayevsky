@@ -9,5 +9,9 @@
                  android:layout_height="match_parent"
                  android:id="@+id/fragment_frame" android:background="#4CAF50">
 
+        <Button
+                android:text="Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/back"/>
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
