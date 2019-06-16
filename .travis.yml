@@ -53,5 +53,5 @@ deploy:
         - ${ART_REPORT_PATH}
      skip_cleanup: true
      on:
-     - all_branches: true
+      all_branches: true
      
