@@ -61,6 +61,7 @@ class ChoiceFragment(private val actContext: Context) : ListFragment() {
             path = ""
         }
         val file =  path + storage.currentChoise.toString()
+
         val arr = JSONArray(getPlainText(file))
         toIndices.clear()
         displayData.clear()
