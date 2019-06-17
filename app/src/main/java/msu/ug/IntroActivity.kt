@@ -16,15 +16,15 @@ class IntroActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
         setContentView(R.layout.activity_intro)
-        val context:Context = this
+
         val classButton = findViewById<Button>(R.id.button_classifier)
         classButton.setOnClickListener {
-            val intent =  Intent(context, MainActivity::class.java)
+            val intent =  Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
         val aboutButton = findViewById<Button>(R.id.button_about)
         aboutButton.setOnClickListener {
-            val intent = Intent(context, AboutActivity::class.java)
+            val intent = Intent(this, AboutActivity::class.java)
             startActivity(intent)
         }
 

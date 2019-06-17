@@ -11,17 +11,34 @@ class Storage (context : Context) {
         switchListeners.add(listener)
     }
 
+    private var stepsNum : Int
+        set(value) {
+            sp.edit().putInt(Const.STEPS_NUM_KEY, value).apply()
+        }
+        get() {
+            return sp.getInt(Const.STEPS_NUM_KEY, 0)
+        }
+
+    private var pathLen : Int
+        set(value) {
+            sp.edit().putInt(Const.PATH_LEN_KEY, value).apply()
+        }
+        get() {
+            return sp.getInt(Const.PATH_LEN_KEY, 0)
+        }
+
     var currentChoise : Int
         set(value) {
             if (value > 0) {
-                sp.edit().putInt(Const.CUR_CHOICE_KEY, value).apply()
+                stepsNum += 1
+                sp.edit().putInt(Const.stepKey(stepsNum), value).apply()
                 switchListeners.forEach {
                     it.invoke()
                 }
             }
         }
         get() {
-            return sp.getInt(Const.CUR_CHOICE_KEY, 1)
+            return sp.getInt(Const.stepKey(stepsNum), 1)
         }
 
     fun getPath() : List<String> {
@@ -42,5 +59,19 @@ class Storage (context : Context) {
         val len = sp.getInt(Const.PATH_LEN_KEY, 0)
         sp.edit().putString(Const.folderKey(len), folder).apply()
         sp.edit().putInt(Const.PATH_LEN_KEY, len + 1).apply()
+    }
+
+    fun goBack() : Boolean {
+        return if (stepsNum > 1) {
+            if (currentChoise == 1) {
+                pathLen -= 1
+            }
+
+            stepsNum -= 1
+
+            true
+        } else {
+            false
+        }
     }
 }

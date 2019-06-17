@@ -2,7 +2,7 @@ package msu.ug
 
 class Const {
     companion object {
-        const val CUR_CHOICE_KEY = "current_choise"
+        const val STEPS_NUM_KEY = "steps_num"
         const val PATH_LEN_KEY = "path_len"
 
         const val DEFAULT_TAXON = "Nihil"
@@ -16,6 +16,10 @@ class Const {
 
         fun folderKey(folderIndex : Int) : String {
             return "folder_$folderIndex"
+        }
+
+        fun stepKey(stepIndex : Int) : String {
+            return "step_$stepIndex"
         }
     }
 }
