@@ -16,5 +16,5 @@
             android:layout_height="wrap_content"
             android:text="@string/back"
             android:layout_gravity="center"
-            android:onClick="onBackClick"/>
+            android:id="@+id/back_button"/>
 </LinearLayout>

@@ -5,10 +5,13 @@ import android.content.SharedPreferences
 
 class Storage (context : Context) {
     private val sp : SharedPreferences = context.getSharedPreferences(Const.SP_NAME, Context.MODE_PRIVATE)
-    private val switchListeners : ArrayList<() -> Unit> = ArrayList()
 
     fun addSwitchListener(listener : () -> Unit) {
-        switchListeners.add(listener)
+        sp.registerOnSharedPreferenceChangeListener { _, s ->
+            if (s == Const.STEPS_NUM_KEY) {
+                listener.invoke()
+            }
+        }
     }
 
     private var stepsNum : Int
@@ -30,11 +33,8 @@ class Storage (context : Context) {
     var currentChoise : Int
         set(value) {
             if (value > 0) {
+                sp.edit().putInt(Const.stepKey(stepsNum + 1), value).apply()
                 stepsNum += 1
-                sp.edit().putInt(Const.stepKey(stepsNum), value).apply()
-                switchListeners.forEach {
-                    it.invoke()
-                }
             }
         }
         get() {
@@ -56,9 +56,8 @@ class Storage (context : Context) {
     }
 
     fun appendPath(folder : String) {
-        val len = sp.getInt(Const.PATH_LEN_KEY, 0)
-        sp.edit().putString(Const.folderKey(len), folder).apply()
-        sp.edit().putInt(Const.PATH_LEN_KEY, len + 1).apply()
+        sp.edit().putString(Const.folderKey(pathLen), folder).apply()
+        pathLen += 1
     }
 
     fun goBack() : Boolean {
