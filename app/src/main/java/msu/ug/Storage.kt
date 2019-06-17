@@ -5,23 +5,40 @@ import android.content.SharedPreferences
 
 class Storage (context : Context) {
     private val sp : SharedPreferences = context.getSharedPreferences(Const.SP_NAME, Context.MODE_PRIVATE)
-    private val switchListeners : ArrayList<() -> Unit> = ArrayList()
 
     fun addSwitchListener(listener : () -> Unit) {
-        switchListeners.add(listener)
-    }
-
-    var currentChoise : Int
-        set(value) {
-            if (value > 0) {
-                sp.edit().putInt(Const.CUR_CHOICE_KEY, value).apply()
-                switchListeners.forEach {
-                    it.invoke()
-                }
+        sp.registerOnSharedPreferenceChangeListener { _, s ->
+            if (s == Const.STEPS_NUM_KEY) {
+                //important: UI updates only after stepsNum changes.
+                // That means, to get the proper UI you need first update pathLen and then update stepsNum
+                listener.invoke()
             }
         }
+    }
+
+    private var stepsNum : Int
+        set(value) {
+            sp.edit().putInt(Const.STEPS_NUM_KEY, value).apply()
+        }
         get() {
-            return sp.getInt(Const.CUR_CHOICE_KEY, 1)
+            return sp.getInt(Const.STEPS_NUM_KEY, 0)
+        }
+
+    private var pathLen : Int
+        set(value) {
+            sp.edit().putInt(Const.PATH_LEN_KEY, value).apply()
+        }
+        get() {
+            return sp.getInt(Const.PATH_LEN_KEY, 0)
+        }
+
+    var currentChoice : Int
+        set(value) {
+            sp.edit().putInt(Const.stepKey(stepsNum + 1), value).apply()
+            stepsNum += 1
+        }
+        get() {
+            return sp.getInt(Const.stepKey(stepsNum), 1)
         }
 
     fun getPath() : List<String> {
@@ -39,8 +56,26 @@ class Storage (context : Context) {
     }
 
     fun appendPath(folder : String) {
-        val len = sp.getInt(Const.PATH_LEN_KEY, 0)
-        sp.edit().putString(Const.folderKey(len), folder).apply()
-        sp.edit().putInt(Const.PATH_LEN_KEY, len + 1).apply()
+        sp.edit().putString(Const.folderKey(pathLen), folder).apply()
+        pathLen += 1
+    }
+
+    fun goBack() : Boolean {
+        return if (stepsNum > 0) {
+            if (currentChoice == 1) {
+                pathLen -= 1
+            }
+
+            stepsNum -= 1
+
+            true
+        } else {
+            false
+        }
+    }
+
+    fun toStart() {
+        pathLen = 0
+        stepsNum = 0
     }
 }
