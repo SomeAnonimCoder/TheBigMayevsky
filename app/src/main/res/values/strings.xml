@@ -44,6 +44,7 @@
     <string name="classifier_button">Определитель</string>
     <string name="about_button">О программе</string>
     <string name="back">Назад</string>
+    <string name="to_start">К началу</string>
     <string name="copyrights">There will be copyright</string>
 
 </resources>

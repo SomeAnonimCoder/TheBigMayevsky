@@ -12,9 +12,19 @@
                  android:layout_weight="0.9">
 
     </FrameLayout>
-    <Button android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/back"
-            android:layout_gravity="center"
-            android:id="@+id/back_button"/>
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_gravity="center">
+        <Button android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/back"
+                android:id="@+id/back_button"
+                android:layout_weight="1"/>
+
+        <Button android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/to_start"
+                android:id="@+id/to_start_button"
+                android:layout_weight="1"/>
+    </LinearLayout>
 </LinearLayout>

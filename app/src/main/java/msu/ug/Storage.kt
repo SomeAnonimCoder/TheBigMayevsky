@@ -9,6 +9,8 @@ class Storage (context : Context) {
     fun addSwitchListener(listener : () -> Unit) {
         sp.registerOnSharedPreferenceChangeListener { _, s ->
             if (s == Const.STEPS_NUM_KEY) {
+                //important: UI updates only after stepsNum changes.
+                // That means, to get the proper UI you need first update pathLen and then update stepsNum
                 listener.invoke()
             }
         }
@@ -30,12 +32,10 @@ class Storage (context : Context) {
             return sp.getInt(Const.PATH_LEN_KEY, 0)
         }
 
-    var currentChoise : Int
+    var currentChoice : Int
         set(value) {
-            if (value > 0) {
-                sp.edit().putInt(Const.stepKey(stepsNum + 1), value).apply()
-                stepsNum += 1
-            }
+            sp.edit().putInt(Const.stepKey(stepsNum + 1), value).apply()
+            stepsNum += 1
         }
         get() {
             return sp.getInt(Const.stepKey(stepsNum), 1)
@@ -61,8 +61,8 @@ class Storage (context : Context) {
     }
 
     fun goBack() : Boolean {
-        return if (stepsNum > 1) {
-            if (currentChoise == 1) {
+        return if (stepsNum > 0) {
+            if (currentChoice == 1) {
                 pathLen -= 1
             }
 
@@ -72,5 +72,10 @@ class Storage (context : Context) {
         } else {
             false
         }
+    }
+
+    fun toStart() {
+        pathLen = 0
+        stepsNum = 0
     }
 }

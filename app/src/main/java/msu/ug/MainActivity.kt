@@ -18,14 +18,20 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.fragment_frame, ChoiceFragment(this))
         transaction.commit()
 
-        val backButton = findViewById<Button>(R.id.back_button)
-
         val storage = Storage(this)
+
+        val backButton = findViewById<Button>(R.id.back_button)
 
         backButton.setOnClickListener {
             if (!storage.goBack()) {
                 Toast.makeText(this, "Вы в начале", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        val toStartButton = findViewById<Button>(R.id.to_start_button)
+
+        toStartButton.setOnClickListener {
+            storage.toStart()
         }
     }
 }

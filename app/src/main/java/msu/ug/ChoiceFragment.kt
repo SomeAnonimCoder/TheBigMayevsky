@@ -34,9 +34,9 @@ class ChoiceFragment(private val actContext: Context) : ListFragment() {
         super.onListItemClick(l, v, position, id)
         if (toIndices[position] == 0) {
             storage.appendPath(taxons[position])
-            storage.currentChoise = 1
+            storage.currentChoice = 1
         } else {
-            storage.currentChoise = toIndices[position]
+            storage.currentChoice = toIndices[position]
         }
 
     }
@@ -60,7 +60,7 @@ class ChoiceFragment(private val actContext: Context) : ListFragment() {
         if (path == "/") {
             path = ""
         }
-        val file =  path + storage.currentChoise.toString()
+        val file =  path + storage.currentChoice.toString()
 
         val arr = JSONArray(getPlainText(file))
         toIndices.clear()
