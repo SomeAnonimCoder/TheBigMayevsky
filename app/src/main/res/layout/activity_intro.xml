@@ -3,7 +3,7 @@
 
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:background="#4CAF50"
+        android:background="@color/background"
         android:orientation="vertical"
         android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="center"
         android:id="@+id/linearLayout" android:baselineAligned="false">
@@ -16,23 +16,32 @@
                 android:layout_width="wrap_content"
                 android:gravity="center"
                 android:layout_height="wrap_content" android:id="@+id/name" android:textSize="36sp"
-                android:typeface="serif" android:textStyle="bold|italic" android:textAllCaps="false"/>
+                android:typeface="serif" android:textStyle="bold|italic" android:textAllCaps="false"
+                android:background="@drawable/ic_button" android:layout_margin="10px" android:layout_marginLeft="10px"
+                android:layout_marginTop="10px" android:layout_marginRight="10px" android:layout_marginBottom="10px"/>
         <Button
                 android:text="@string/classifier_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/button-classifier"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:id="@+id/button-classifier"
+                android:background="@drawable/ic_button" android:textColor="@color/text"
+                style="@style/Widget.AppCompat.Button" android:layout_margin="10px" android:layout_marginLeft="10px"
+                android:layout_marginTop="10px" android:layout_marginRight="10px" android:layout_marginBottom="10px"/>
         <Button
                 android:text="@string/about_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                android:id="@+id/button-about"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/button-about" android:background="@drawable/ic_button"
+                android:textColor="@color/text" style="@style/Widget.AppCompat.Button" android:layout_margin="10px"
+                android:layout_marginLeft="10px" android:layout_marginTop="10px" android:layout_marginRight="10px"
+                android:layout_marginBottom="10px"/>
+    </LinearLayout>
     <TextView
             android:text="@string/copyrights"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/textView2"
             app:layout_constraintBottom_toBottomOf="@+id/linearLayout" android:layout_marginBottom="10dp"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"/>
-</LinearLayout>
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp" android:textColor="@color/text"/>
 </LinearLayout>
