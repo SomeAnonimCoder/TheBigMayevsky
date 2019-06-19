@@ -3,7 +3,6 @@ package msu.ug
 import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.Toast
 
@@ -14,9 +13,7 @@ class MainActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(R.layout.activity_main)
 
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_frame, ChoiceFragment(this))
-        transaction.commit()
+        switchToChoice()
 
         val storage = Storage(this)
 
@@ -33,5 +30,18 @@ class MainActivity : AppCompatActivity() {
         toStartButton.setOnClickListener {
             storage.toStart()
         }
+    }
+
+    private fun switchToChoice() {
+        val choiceTransaction = supportFragmentManager.beginTransaction()
+        choiceTransaction.replace(R.id.fragment_frame, ChoiceFragment(this) {
+            val descriptionTransaction = supportFragmentManager.beginTransaction()
+            descriptionTransaction.replace(R.id.fragment_frame, DescriptionFragment(this) {
+                switchToChoice()
+            })
+            descriptionTransaction.commit()
+        })
+        choiceTransaction.commit()
+
     }
 }

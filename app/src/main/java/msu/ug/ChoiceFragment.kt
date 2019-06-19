@@ -10,23 +10,28 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.lang.StringBuilder
 
-class ChoiceFragment(private val actContext: Context) : ListFragment() {
+class ChoiceFragment(private val actContext: Context, private val descriptionSwitcher : () -> Unit) : ListFragment() {
     private val storage = Storage(actContext)
     private val toIndices = ArrayList<Int>()
     private val taxons = ArrayList<String>()
+    private val displayData = ArrayList<Map<String, Any>>()
 
     override fun onStart() {
         super.onStart()
 
         val from = arrayOf(Const.MAP_TEXT_KEY)
         val to = intArrayOf(android.R.id.text1)
-        val displayData = ArrayList<Map<String, Any>>()
-        updateDisplayData(displayData)
+
+        updateChoiceData()
         val listAdapter = SimpleAdapter(context, displayData, android.R.layout.simple_list_item_1, from, to)
         setListAdapter(listAdapter)
-        storage.addSwitchListener {
-            updateDisplayData(displayData)
-            listAdapter.notifyDataSetChanged()
+        storage.addOnSwitchListener {
+            if (storage.currentChoice != 0) {
+                updateChoiceData()
+                listAdapter.notifyDataSetChanged()
+            } else {
+                descriptionSwitcher.invoke()
+            }
         }
     }
 
@@ -34,44 +39,29 @@ class ChoiceFragment(private val actContext: Context) : ListFragment() {
         super.onListItemClick(l, v, position, id)
         if (toIndices[position] == 0) {
             storage.appendPath(taxons[position])
-            storage.currentChoice = 1
-        } else {
-            storage.currentChoice = toIndices[position]
+            //that means we are going deeper - to child taxon
         }
 
+        storage.currentChoice = toIndices[position]
     }
 
-    private fun getPlainText(statementFile : String) : String {
-        val statementStream = actContext.assets.open(statementFile)
-        val br = BufferedReader(InputStreamReader(statementStream))
-        var line : String? = br.readLine()
-        val sb = StringBuilder()
 
-        while (line != null) {
-            sb.append(line)
-            line = br.readLine()
-        }
 
-        return sb.toString()
-    }
+    private fun updateChoiceData() {
+        val assetReader = AssetReader(actContext)
 
-    private fun updateDisplayData(displayData: ArrayList<Map<String, Any>>) {
-        var path = storage.getPath().joinToString("/") + "/"
-        if (path == "/") {
-            path = ""
-        }
-        val file =  path + storage.currentChoice.toString()
-
-        val arr = JSONArray(getPlainText(file))
+        val arr = assetReader.getArr(storage.getCurFile())
         toIndices.clear()
         displayData.clear()
         (0 until arr.length()).forEach {i ->
-            val map = HashMap<String, Any>()
             val thesa = arr.getJSONObject(i)
+
+            val map = HashMap<String, Any>()
             map[Const.MAP_TEXT_KEY] = thesa.getString(Const.JSON_TEXT_KEY)
+            displayData.add(map)
+
             toIndices.add(thesa.getInt(Const.TO_KEY))
             taxons.add(thesa.optString(Const.TAXON_KEY, Const.DEFAULT_TAXON))
-            displayData.add(map)
         }
     }
 }

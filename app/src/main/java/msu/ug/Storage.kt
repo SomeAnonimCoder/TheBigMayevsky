@@ -6,11 +6,9 @@ import android.content.SharedPreferences
 class Storage (context : Context) {
     private val sp : SharedPreferences = context.getSharedPreferences(Const.SP_NAME, Context.MODE_PRIVATE)
 
-    fun addSwitchListener(listener : () -> Unit) {
+    fun addOnSwitchListener(listener : () -> Unit) {
         sp.registerOnSharedPreferenceChangeListener { _, s ->
             if (s == Const.STEPS_NUM_KEY) {
-                //important: UI updates only after stepsNum changes.
-                // That means, to get the proper UI you need first update pathLen and then update stepsNum
                 listener.invoke()
             }
         }
@@ -41,18 +39,20 @@ class Storage (context : Context) {
             return sp.getInt(Const.stepKey(stepsNum), 1)
         }
 
-    fun getPath() : List<String> {
-        val pathLen = sp.getInt(Const.PATH_LEN_KEY, 0)
-        val ret = ArrayList<String>()
+    fun getCurFile() : String {
+        val path = StringBuilder("")
 
         for (i in 0 until pathLen) {
             val str = sp.getString(Const.folderKey(i), "")
             if (str != null) {
-                ret.add(str)
+                path.append(str)
+                path.append("/")
             }
         }
 
-        return ret
+        path.append(currentChoice)
+
+        return path.toString()
     }
 
     fun appendPath(folder : String) {
@@ -62,7 +62,7 @@ class Storage (context : Context) {
 
     fun goBack() : Boolean {
         return if (stepsNum > 0) {
-            if (currentChoice == 1) {
+            if (currentChoice == 0) {
                 pathLen -= 1
             }
 

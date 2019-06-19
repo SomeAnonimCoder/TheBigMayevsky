@@ -8,9 +8,14 @@ class Const {
         const val DEFAULT_TAXON = "Nihil"
 
         const val MAP_TEXT_KEY = "text"
+
         const val JSON_TEXT_KEY = "text"
         const val TO_KEY = "to"
         const val TAXON_KEY = "taxon"
+
+        const val NAME_KEY = "russian_name"
+        const val DESCRIPTION_KEY = "description"
+        const val TERMINAL_KEY = "terminal"
 
         const val SP_NAME = "my_shared_preferences"
 
