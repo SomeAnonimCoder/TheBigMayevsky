@@ -2,6 +2,7 @@ package msu.ug
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +10,12 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 
-class DescriptionFragment(actContext: Context, private val choiceSwitcher : () -> Unit) : Fragment() {
-    private val storage = Storage(actContext)
+class DescriptionFragment(actContext: Context,
+                          private val storage : Storage) : Fragment() {
     private val assetReader = AssetReader(actContext)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        Log.e("DESCRIPTION_FRAG", "on create view started")
         val layout = inflater.inflate(R.layout.fragment_description, container, false)
 
         val data = assetReader.getObj(storage.getCurFile())
@@ -23,6 +25,7 @@ class DescriptionFragment(actContext: Context, private val choiceSwitcher : () -
             button.visibility = View.GONE
         } else {
             button.setOnClickListener {
+                Log.e("DESCRIPTION_FRAG", "i think button is pushed")
                 storage.currentChoice = 1
             }
         }
@@ -33,7 +36,7 @@ class DescriptionFragment(actContext: Context, private val choiceSwitcher : () -
         val description = layout.findViewById<TextView>(R.id.taxon_description_box)
         description.text = data.getString(Const.DESCRIPTION_KEY)
 
-        storage.addOnSwitchListener(choiceSwitcher)
+        Log.e("DESCRIPTION_FRAG", "on create view ends")
 
         return layout
 

@@ -3,6 +3,7 @@ package msu.ug
 import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 
@@ -13,9 +14,11 @@ class MainActivity : AppCompatActivity() {
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setContentView(R.layout.activity_main)
 
-        switchToChoice()
-
         val storage = Storage(this)
+        storage.addOnSwitchListener {
+            Log.e("MAIN", "see switch")
+            setFragment(storage)
+        }
 
         val backButton = findViewById<Button>(R.id.back_button)
 
@@ -30,18 +33,18 @@ class MainActivity : AppCompatActivity() {
         toStartButton.setOnClickListener {
             storage.toStart()
         }
+
+        storage.currentChoice = 1
     }
 
-    private fun switchToChoice() {
-        val choiceTransaction = supportFragmentManager.beginTransaction()
-        choiceTransaction.replace(R.id.fragment_frame, ChoiceFragment(this) {
-            val descriptionTransaction = supportFragmentManager.beginTransaction()
-            descriptionTransaction.replace(R.id.fragment_frame, DescriptionFragment(this) {
-                switchToChoice()
-            })
-            descriptionTransaction.commit()
-        })
-        choiceTransaction.commit()
-
+    private fun setFragment(storage: Storage) {
+        val transaction = supportFragmentManager.beginTransaction()
+        if (storage.currentChoice == 0) {
+            transaction.replace(R.id.fragment_frame, DescriptionFragment(this, storage))
+        } else {
+            transaction.replace(R.id.fragment_frame, ChoiceFragment(this, storage))
+        }
+        transaction.commit()
     }
+
 }

@@ -2,16 +2,22 @@ package msu.ug
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 
 class Storage (context : Context) {
     private val sp : SharedPreferences = context.getSharedPreferences(Const.SP_NAME, Context.MODE_PRIVATE)
+    private val listeners = HashSet<(SharedPreferences, String) -> Unit>()
 
     fun addOnSwitchListener(listener : () -> Unit) {
-        sp.registerOnSharedPreferenceChangeListener { _, s ->
+        val prefListener = { _ : SharedPreferences, s : String ->
             if (s == Const.STEPS_NUM_KEY) {
+                Log.e("STORAGE", "sp listener talking")
                 listener.invoke()
             }
         }
+
+        listeners.add(prefListener)
+        sp.registerOnSharedPreferenceChangeListener(prefListener)
     }
 
     private var stepsNum : Int
@@ -34,6 +40,7 @@ class Storage (context : Context) {
         set(value) {
             sp.edit().putInt(Const.stepKey(stepsNum + 1), value).apply()
             stepsNum += 1
+            Log.e("STORAGE", "switched current choice $currentChoice")
         }
         get() {
             return sp.getInt(Const.stepKey(stepsNum), 1)
