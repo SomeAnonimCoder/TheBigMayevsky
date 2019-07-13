@@ -1,27 +1,22 @@
 sudo: required
-
 language: android
 jdk: oraclejdk8
-
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -rf $HOME/.gradle/caches/*/plugin-resolution/
-
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -rf $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-  - $HOME/.gradle/caches/
-  - $HOME/.gradle/wrapper/
-  - $HOME/.android/build-cache
-  
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+  - "$HOME/.android/build-cache"
 before_install:
 - yes | sdkmanager "platforms;android-29"
 - yes | sdkmanager "build-tools;29.0.0"
-
 env:
- global:
- - ANDROID_API=26
- - ANDROID_BUILD_TOOLS=26.0.2
-
+  global:
+  - ANDROID_API=26
+  - ANDROID_BUILD_TOOLS=26.0.2
+  - secure: F/4iQmF5GnrusEvrJ8lgKR/BkfO/7h5DVPS9tbUAJgwJIF/bcJccH0V7aJKNkhkvriifrRkU4Xxt9kHlwWcSMtwIIvtQAiugZUG+gf03lIsYVy9o2RFB7nIkmX9hg0w7T3k/7OCq0o2FMserL7kTeG5e/HgrLiC5TQdDgE7N8mBOAvkxmdVwJcVjxOfialuHRQsCNxogmk4vMiomWVgOHhGLYSdqOvRjzLGH1oDBt0+uOiL2roVQ5Av/sHFNIMexTLMAMO/7mJhm1lAqlhXapVvjaSx2Eyizt8+V6CQ4BsK7RJTjL2++AlEw7+AylB7QtXTn/mIDjcgvSVQclSGGL75tJlREVTBmo9owq1CDWsDcQzTozCpKsMLsk7nOckl4yfPybB93v2y1t6vFfxpJh3Os9KBVLZcylxU/uwuL7iAMvO3EsFfzNsneFTT93EtA4ZvQM36kijVwlrVnf9vey2fb6wtL9cZbdIYtVZtO4G5ywBmOHxyN/ZGllWzrfrVU/iNopQv+HwpjZqld0iupPDhDpRc1pOUn8gsPyTR4rTV4jkIEsGoLwkOjSpSPHQsDTTjjx3pb82mei/2twQADiC6hTd+Myl2iUoQKBWmbQDhYKW1QYQq5gRsWokPw2NfkjydHa4CEhWojHOL0DWjFapHd/l7MWXMCbwOKX0KhdLo=
 android:
   components:
   - tools
@@ -30,28 +25,25 @@ android:
   - build-tools-${ANDROID_BUILD_TOOLS}
   - extra
   licenses:
-   - 'android-sdk-preview-license-52d11cd2'
-   - 'android-sdk-license-.+'
-   - 'google-gdk-license-.+'
-
+  - android-sdk-preview-license-52d11cd2
+  - android-sdk-license-.+
+  - google-gdk-license-.+
 script:
-- curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.33.0/ktlint && chmod a+x ktlint
+- curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.33.0/ktlint &&
+  chmod a+x ktlint
 - curl -sS https://keybase.io/pinterestandroid/pgp_keys.asc | gpg --import
 - curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.33.0/ktlint.asc
 - gpg --verify ktlint.asc
-- ./gradlew clean test build
-
+- "./gradlew clean test build"
 before_deploy:
-  - export ART_APK_PATH=$(find . -name '*debug.apk')
-  - export ART_REPORT_PATH=$(find . -name "lint-results.html")
-
+- export ART_APK_PATH=$(find . -name '*debug.apk')
+- export ART_REPORT_PATH=$(find . -name "lint-results.html")
 deploy:
-     provider: releases
-     api_key: "3e6b24d0a2faf3e8f02ba3ab68db5826a766551c"
-     file:        
-        - ${ART_APK_PATH}
-        - ${ART_REPORT_PATH}
-     skip_cleanup: true
-     on:
-      all_branches: true
-     
+  provider: releases
+  api_key: $somevar
+  file:
+  - "${ART_APK_PATH}"
+  - "${ART_REPORT_PATH}"
+  skip_cleanup: true
+  on:
+    all_branches: true
