@@ -3,6 +3,7 @@ package msu.ug
 import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.util.Log
 import android.widget.Button
 import android.widget.Toast
@@ -15,8 +16,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val storage = Storage(this)
-        storage.addOnSwitchListener {
-            Log.e("MAIN", "see switch")
+        storage.addOnTaxSwitchListener {
             setFragment(storage)
         }
 
@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         storage.currentChoice = 1
+        setFragment(storage)
     }
 
     private fun setFragment(storage: Storage) {
@@ -44,7 +45,8 @@ class MainActivity : AppCompatActivity() {
         } else {
             transaction.replace(R.id.fragment_frame, ChoiceFragment(this, storage))
         }
-        transaction.commit()
+        Log.e("MAIN", "commiting transaction")
+        transaction.commitAllowingStateLoss()
     }
 
 }

@@ -4,6 +4,7 @@ class Const {
     companion object {
         const val STEPS_NUM_KEY = "steps_num"
         const val PATH_LEN_KEY = "path_len"
+        const val IS_DESCRIPTION_KEY = "is_description"
 
         const val DEFAULT_TAXON = "Nihil"
 

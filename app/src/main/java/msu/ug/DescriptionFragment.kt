@@ -15,7 +15,6 @@ class DescriptionFragment(actContext: Context,
     private val assetReader = AssetReader(actContext)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Log.e("DESCRIPTION_FRAG", "on create view started")
         val layout = inflater.inflate(R.layout.fragment_description, container, false)
 
         val data = assetReader.getObj(storage.getCurFile())
@@ -25,7 +24,6 @@ class DescriptionFragment(actContext: Context,
             button.visibility = View.GONE
         } else {
             button.setOnClickListener {
-                Log.e("DESCRIPTION_FRAG", "i think button is pushed")
                 storage.currentChoice = 1
             }
         }
@@ -35,8 +33,6 @@ class DescriptionFragment(actContext: Context,
 
         val description = layout.findViewById<TextView>(R.id.taxon_description_box)
         description.text = data.getString(Const.DESCRIPTION_KEY)
-
-        Log.e("DESCRIPTION_FRAG", "on create view ends")
 
         return layout
 
