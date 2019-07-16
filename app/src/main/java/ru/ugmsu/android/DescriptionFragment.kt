@@ -1,4 +1,4 @@
-package msu.ug
+package ru.ugmsu.android
 
 import android.content.Context
 import android.os.Bundle

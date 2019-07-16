@@ -1,4 +1,4 @@
-package msu.ug
+package ru.ugmsu.android
 
 import android.content.Context
 import android.os.Bundle
@@ -39,6 +39,7 @@ class ChoiceFragment(private val actContext: Context,
         }
 
         storage.currentChoice = toIndices[position]
+        Log.e("CHOICE", "i see ${storage.listeners.size}")
     }
 
 
@@ -49,6 +50,7 @@ class ChoiceFragment(private val actContext: Context,
         val arr = assetReader.getArr(storage.getCurFile())
         toIndices.clear()
         displayData.clear()
+        taxons.clear()
         (0 until arr.length()).forEach {i ->
             val thesa = arr.getJSONObject(i)
 

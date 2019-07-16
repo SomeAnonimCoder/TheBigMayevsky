@@ -1,4 +1,4 @@
-package msu.ug
+package ru.ugmsu.android
 
 class Const {
     companion object {

@@ -1,4 +1,4 @@
-package msu.ug
+package ru.ugmsu.android
 
 import android.content.pm.ActivityInfo
 import android.os.Bundle
