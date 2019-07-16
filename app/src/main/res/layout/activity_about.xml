@@ -14,6 +14,8 @@
                 android:text="@string/info"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" android:id="@+id/info-tv"
-                android:layout_weight="1"/>
+                android:autoLink="all"
+                android:maxLines="40"
+                android:textSize="20sp"/>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
