@@ -30,8 +30,8 @@ class ChoiceFragment(private val actContext: Context,
         }
     }
 
-    override fun onListItemClick(l: ListView?, v: View?, position: Int, id: Long) {
-        super.onListItemClick(l, v, position, id)
+    override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {
+        super.onListItemClick(l!!, v!!, position, id)
         Log.e("CHOICE", "click listener talking")
         if (toIndices[position] == 0) {
             storage.appendPath(taxons[position])
