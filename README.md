@@ -22,7 +22,7 @@ The Big Mayevsky - оцифрованная версия известного о
 
 Если вы хотите помочь но не хотите регистрироваться на github (это нужно для выполнения предыдущих пунктов), или у вас просто есть вопросы/пожелания/претензии к создателям, пишите на 
 
-- oleg.demianchenko@gmail.com или vk.com/o.demyanchenko (RedSnail)
+- oleg.demianchenko@gmail.com или https://vk.com/o.demyanchenko (RedSnail)
 
 - glubshev2001@mail.ru или https://vk.com/artem_48_290901 (SomeAnonimCoder)
 

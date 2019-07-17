@@ -1,50 +1,22 @@
 <resources>
-    <string name="app_name">TheBigMayevsky</string>
+    <string name="app_name">The Big Mayevsky</string>
     <string name="info">
-        <p><strong>О приложении</strong></p>
-
-        <p>The Big Mayevsky - оцифрованная версия известного определителя растений европейской части России. Отличие от книги заключается в том, что переход от одного пункта к другому происходит автоматически и вам не надо перелистывать книгу.</p>
-
-        <p><strong>Как каждый может нам помочь</strong></p>
-
-        <p>На настоящий момент оцифрована лишь часть определителя, и вы можете нам помочь. Данные, на которых работает приложение находятся в папке https://github.com/SomeAnonimCoder/TheBigMayevsky/tree/master/app/src/main/assets.
-            Каждая "развилка" хранится там в таком формате:</p>
-
-        <p><code>[{"text":"текст тезы", "to":"номер, на который отправляет теза (0 если на этом заканчивается определение семейства/рода/вида)"}, {"text":"текст антитезы", "to":"аналогично"}]</code></p>
-
-        <p>Чтобы добавить информацию о таксоне в определитель, нужно</p>
-
-        <ol>
-            <li>Отредактировать файл пункта, ведущего к семейству. помимо "text" и "to" нужно добавить "taxon":"название таксона на латыни"
-                Например</li>
-        </ol>
-
-        <p><code>{"text":"цветок в виде креста?", "to":"0", "taxon":"Cruciferae"}</code></p>
-
-        <ol>
-            <li>создать в той же папке, где был файл, который вы редактировали в 1ом пункте, папку с названием как у таксона (важно, чтобы название папки совпадало с тем, что вы вписали в поле "taxon") и по аналогии заполнить её текстовыми файлами с классификацией и файлом intro.png с информацией о таксоне (он будет показываться при переходе к нему).</li>
-        </ol>
-
-        <p>При следуещем обновлении информация о таксоне будет включена в приложение.</p>
-
-        <p>Если вы хотите помочь но не хотите регистрироваться на github (это нужно для выполнения предыдущих пунктов), или у вас просто есть вопросы/пожелания/претензии к создателям, пишите на </p>
-
-        <ul>
-            <li><p>oleg.demianchenko@gmail.com или vk.com/o.demyanchenko (RedSnail)</p></li>
-
-            <li><p>glubshev2001@mail.ru или https://vk.com/artem<em>48</em>290901 (SomeAnonimCoder)</p></li>
-        </ul>
-
-        <p><em>P.S</em></p>
-
-        <p>Здесь веб-приложение для тех-же целей (https://github.com/SomeAnonimCoder/classifier).</p>
+        The Big Mayevsky - открытое приложение, представляющее собой оцифрованную версию определителя растений авторства Маевского.\n
+        В настоящий момент приложение находится в разработке и любой (даже без навыков программирования) может нам помочь\n
+        Наша группа Вконтакте https://vk.com/club183579612\n
+        <b>Авторы:</b>\n
+        Олег Демьянченко oleg.demianchenko@gmail.com или https://vk.com/o.demyanchenko\n
+        Артём Глубшев glubshev2001@mail.ru или https://vk.com/artem_48_290901\n
+        <b>Наш github</b>\n
+        https://github.com/SomeAnonimCoder/TheBigMayevsky
     </string>
 
     <string name="name">The Big\nMayevsky</string>
     <string name="classifier_button">Определитель</string>
-    <string name="about_button">О программе</string>
+    <string name="about_button">О приложении</string>
     <string name="back">Назад</string>
     <string name="to_start">К началу</string>
     <string name="copyrights">There will be copyright</string>
+    <string name="ok_button">OK</string>
 
 </resources>
